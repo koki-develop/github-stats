@@ -2,5 +2,10 @@
   "name": "github-stats",
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "next": "^12.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
