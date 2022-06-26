@@ -25,13 +25,13 @@ export const fetchLanguages = async (): Promise<Omit<Language, "count">[]> => {
     .filter((language) => ["programming", "markup"].includes(language.type));
 };
 
-type NumUsersResponse = {
+type UserCountResponse = {
   user: {
     userCount: number;
   };
 };
 
-export const fetchNumUsers = async (): Promise<number> => {
+export const fetchUserCount = async (): Promise<number> => {
   const query = gql`
     {
       user: search(type: USER, query: "type:user") {
@@ -39,17 +39,17 @@ export const fetchNumUsers = async (): Promise<number> => {
       }
     }
   `;
-  const resp = await sendRequest<NumUsersResponse>(query);
+  const resp = await sendRequest<UserCountResponse>(query);
   return resp.user.userCount;
 };
 
-type NumOrganizationsResponse = {
+type OrganizationCountResponse = {
   org: {
     userCount: number;
   };
 };
 
-export const fetchNumOrganizations = async (): Promise<number> => {
+export const fetchOrganizationCount = async (): Promise<number> => {
   const query = gql`
     {
       org: search(type: USER, query: "type:org") {
@@ -57,17 +57,17 @@ export const fetchNumOrganizations = async (): Promise<number> => {
       }
     }
   `;
-  const resp = await sendRequest<NumOrganizationsResponse>(query);
+  const resp = await sendRequest<OrganizationCountResponse>(query);
   return resp.org.userCount;
 };
 
-type NumRepositoriesResponse = {
+type RepositoryCountResponse = {
   repo: {
     repositoryCount: number;
   };
 };
 
-export const fetchNumRepositories = async (): Promise<number> => {
+export const fetchRepositoryCount = async (): Promise<number> => {
   const query = gql`
     {
       repo: search(type: REPOSITORY, query: "is:public") {
@@ -75,7 +75,7 @@ export const fetchNumRepositories = async (): Promise<number> => {
       }
     }
   `;
-  const resp = await sendRequest<NumRepositoriesResponse>(query);
+  const resp = await sendRequest<RepositoryCountResponse>(query);
   return resp.repo.repositoryCount;
 };
 
