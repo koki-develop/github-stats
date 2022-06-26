@@ -10,7 +10,7 @@ type LanguagesYaml = {
   };
 };
 
-export const fetchLanguages = async (): Promise<Language[]> => {
+export const fetchLanguages = async (): Promise<Omit<Language, "count">[]> => {
   const endpoint =
     "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml";
   const { data } = await axios.get<string>(endpoint);
