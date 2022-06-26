@@ -43,6 +43,24 @@ export const fetchNumUsers = async (): Promise<number> => {
   return resp.user.userCount;
 };
 
+type NumOrganizationsResponse = {
+  org: {
+    userCount: number;
+  };
+};
+
+export const fetchNumOrganizations = async (): Promise<number> => {
+  const query = gql`
+    {
+      org: search(type: USER, query: "type:org") {
+        userCount
+      }
+    }
+  `;
+  const resp = await sendRequest<NumOrganizationsResponse>(query);
+  return resp.org.userCount;
+};
+
 const sendRequest = async <T>(query: string): Promise<T> => {
   const githubEndpointUrl = "https://api.github.com/graphql";
   const githubToken = process.env.GITHUB_TOKEN;
