@@ -8,7 +8,8 @@
     "build": "next build",
     "fetch:languages": "ts-node src/tasks/fetchLanguages.ts",
     "fetch:data": "ts-node src/tasks/fetchData.ts",
-    "upload:data": "ts-node src/tasks/uploadData.ts"
+    "upload:data": "ts-node src/tasks/uploadData.ts",
+    "download:data": "ts-node src/tasks/downloadData.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
