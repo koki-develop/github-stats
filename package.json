@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "fetch:languages": "ts-node src/tasks/fetchLanguages.ts"
+    "fetch:languages": "ts-node src/tasks/fetchLanguages.ts",
+    "fetch:data": "ts-node src/tasks/fetchData.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
