@@ -1,9 +1,1 @@
-/node_modules/
-/.next/
-
 /.envrc
-
-/data/*
-!/data/.keep
-
-/src/data.json
