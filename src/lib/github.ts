@@ -1,4 +1,5 @@
 import axios from "axios";
+import { gql, rawRequest } from "graphql-request";
 import yaml from "js-yaml";
 import { Language, LanguageType } from "../models/language";
 
@@ -22,4 +23,32 @@ export const fetchLanguages = async (): Promise<Language[]> => {
       color,
     }))
     .filter((language) => ["programming", "markup"].includes(language.type));
+};
+
+type NumUsersResponse = {
+  user: {
+    userCount: number;
+  };
+};
+
+export const fetchNumUsers = async (): Promise<number> => {
+  const query = gql`
+    {
+      user: search(type: USER, query: "type:user") {
+        userCount
+      }
+    }
+  `;
+  const resp = await sendRequest<NumUsersResponse>(query);
+  return resp.user.userCount;
+};
+
+const sendRequest = async <T>(query: string): Promise<T> => {
+  const githubEndpointUrl = "https://api.github.com/graphql";
+  const githubToken = process.env.GITHUB_TOKEN;
+
+  const { data } = await rawRequest<T>(githubEndpointUrl, query, undefined, {
+    authorization: `Bearer ${githubToken}`,
+  });
+  return data;
 };
