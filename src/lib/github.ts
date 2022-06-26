@@ -61,6 +61,24 @@ export const fetchNumOrganizations = async (): Promise<number> => {
   return resp.org.userCount;
 };
 
+type NumRepositoriesResponse = {
+  repo: {
+    repositoryCount: number;
+  };
+};
+
+export const fetchNumRepositories = async (): Promise<number> => {
+  const query = gql`
+    {
+      repo: search(type: REPOSITORY, query: "is:public") {
+        repositoryCount
+      }
+    }
+  `;
+  const resp = await sendRequest<NumRepositoriesResponse>(query);
+  return resp.repo.repositoryCount;
+};
+
 const sendRequest = async <T>(query: string): Promise<T> => {
   const githubEndpointUrl = "https://api.github.com/graphql";
   const githubToken = process.env.GITHUB_TOKEN;
