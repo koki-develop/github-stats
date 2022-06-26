@@ -9,6 +9,9 @@ on:
 
 jobs:
   deploy:
+    defaults:
+      run:
+        working-directory: frontend
     runs-on: ubuntu-latest
     permissions:
       id-token: write
