@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "files" {
-  bucket = "github-stats-files"
+  bucket = "${local.prefix}-files"
 }
 
 resource "aws_s3_bucket_public_access_block" "files" {
@@ -12,7 +12,7 @@ resource "aws_s3_bucket_public_access_block" "files" {
 }
 
 resource "aws_s3_bucket" "frontend" {
-  bucket = "github-stats-frontend"
+  bucket = "${local.prefix}-frontend"
 }
 
 resource "aws_s3_bucket_public_access_block" "frontend" {
