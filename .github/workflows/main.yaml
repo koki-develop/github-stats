@@ -8,7 +8,7 @@ on:
     - cron: "0 0 * * *" # 毎日 9 時
 
 jobs:
-  deploy:
+  build:
     defaults:
       run:
         working-directory: frontend
@@ -44,3 +44,31 @@ jobs:
       - name: upload data
         run: yarn run upload:data
 
+  deploy:
+    defaults:
+      run:
+        working-directory: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: configure aws
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+      - name: install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: build
+        run: yarn run build
+      - name: upload to s3
+        run: aws s3 sync --delete ./out/ s3://github-stats-frontend
