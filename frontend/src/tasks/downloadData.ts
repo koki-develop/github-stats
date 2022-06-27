@@ -24,11 +24,10 @@ const _download = async (filename: string): Promise<[string, boolean]> => {
 };
 
 type Data = {
-  date: string;
-  users: { count: number };
-  orgs: { count: number };
-  repos: { count: number };
-  languages: Language[];
+  users: { date: string; count: number };
+  orgs: { date: string; count: number };
+  repos: { date: string; count: number };
+  languages: { date: string; languages: Language[] };
 };
 
 (async () => {
@@ -55,7 +54,6 @@ type Data = {
       throw new Error("fetch failed");
     }
     rows.push({
-      date: dateString,
       users: JSON.parse(users),
       orgs: JSON.parse(orgs),
       repos: JSON.parse(repos),

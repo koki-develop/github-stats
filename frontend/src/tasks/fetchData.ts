@@ -25,15 +25,27 @@ const _gzip = (data: string): Buffer => {
 
 (async () => {
   const numUsers = await fetchUserCount();
-  _writeData("users.json", JSON.stringify({ count: numUsers }));
+  _writeData(
+    "users.json",
+    JSON.stringify({ date: new Date().toISOString(), count: numUsers })
+  );
 
   const numOrgs = await fetchOrganizationCount();
-  _writeData("orgs.json", JSON.stringify({ count: numOrgs }));
+  _writeData(
+    "orgs.json",
+    JSON.stringify({ date: new Date().toISOString(), count: numOrgs })
+  );
 
   const numRepos = await fetchRepositoryCount();
-  _writeData("repos.json", JSON.stringify({ count: numRepos }));
+  _writeData(
+    "repos.json",
+    JSON.stringify({ date: new Date().toISOString(), count: numRepos })
+  );
 
   const languageWithoutCounts = JSON.parse(_loadData("languages.json"));
   const languages = await fetchLanguageCounts(languageWithoutCounts);
-  _writeData("languages.json", JSON.stringify(languages));
+  _writeData(
+    "languages.json",
+    JSON.stringify({ date: new Date().toISOString(), languages })
+  );
 })();
