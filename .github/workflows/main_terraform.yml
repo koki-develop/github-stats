@@ -1,0 +1,32 @@
+name: terraform apply
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_terraform:
+    defaults:
+      run:
+        working-directory: terraform
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: configure aws
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.3
+
+      - run: terraform init
+      - run: terraform apply -auto-approve
