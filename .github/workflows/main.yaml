@@ -8,7 +8,7 @@ on:
     - cron: "0 0 * * *" # 毎日 9 時
 
 jobs:
-  build:
+  build_data:
     defaults:
       run:
         working-directory: frontend
@@ -44,10 +44,15 @@ jobs:
       - name: upload data
         run: yarn run upload:data
 
-  deploy:
+  deploy_frontend:
     defaults:
       run:
         working-directory: frontend
+    permissions:
+      id-token: write
+      contents: read
+    needs:
+      - build_data
     runs-on: ubuntu-latest
     steps:
       - name: checkout
