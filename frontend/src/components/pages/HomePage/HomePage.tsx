@@ -45,7 +45,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         <p>yesterday: {orgs.yesterday}</p>
       </div>
       <div>
-        <h1>repos</h1>
+        <h1>
+          <Link href="/repos">repos</Link>
+        </h1>
         <p>updated: {repos.updatedAt}</p>
         <p>today: {repos.today}</p>
         <p>yesterday: {repos.yesterday}</p>
