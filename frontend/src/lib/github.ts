@@ -34,6 +34,7 @@ type UserCountResponse = {
 };
 
 export const fetchUserCount = async (): Promise<number> => {
+  console.info("fetching user count...");
   const query = gql`
     {
       user: search(type: USER, query: "type:user") {
@@ -41,8 +42,11 @@ export const fetchUserCount = async (): Promise<number> => {
       }
     }
   `;
+  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<UserCountResponse>(query);
-  return resp.user.userCount;
+  const { userCount } = resp.user;
+  console.info("fetched:", userCount);
+  return userCount;
 };
 
 type OrganizationCountResponse = {
@@ -52,6 +56,7 @@ type OrganizationCountResponse = {
 };
 
 export const fetchOrganizationCount = async (): Promise<number> => {
+  console.info("fetching organization count...");
   const query = gql`
     {
       org: search(type: USER, query: "type:org") {
@@ -59,8 +64,11 @@ export const fetchOrganizationCount = async (): Promise<number> => {
       }
     }
   `;
+  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<OrganizationCountResponse>(query);
-  return resp.org.userCount;
+  const { userCount } = resp.org;
+  console.info("fetched:", userCount);
+  return userCount;
 };
 
 type RepositoryCountResponse = {
@@ -70,6 +78,7 @@ type RepositoryCountResponse = {
 };
 
 export const fetchRepositoryCount = async (): Promise<number> => {
+  console.info("fetching repository count...");
   const query = gql`
     {
       repo: search(type: REPOSITORY, query: "is:public") {
@@ -77,7 +86,10 @@ export const fetchRepositoryCount = async (): Promise<number> => {
       }
     }
   `;
+  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<RepositoryCountResponse>(query);
+  const { repositoryCount } = resp.repo;
+  console.info("fetched:", repositoryCount);
   return resp.repo.repositoryCount;
 };
 
@@ -90,27 +102,32 @@ type LanguageCountResponse = {
 export const fetchLanguageCounts = async (
   languages: Omit<Language, "count">[]
 ): Promise<Language[]> => {
+  console.info("languages:", languages.length);
   const languageWithCounts: Language[] = [];
 
   while (languages.length > 0) {
     const nextLanguages = languages.splice(0, 50);
+    console.info("next:", JSON.stringify(nextLanguages));
     const map = new Map<string, Omit<Language, "count">>(
       nextLanguages.map((language) => [`a${_md5(language.name)}`, language])
     );
-
+    console.info("fetching languages...");
     const query = gql`
 {
   ${Array.from(map.entries())
     .map(([key, language]) => {
-      return `${key}: search(type: REPOSITORY, query: "is:public language:\\"${language.name}\\"") { repositoryCount }`;
+      return `${key}: search(type: REPOSITORY, query: "language:\\"${language.name}\\"") { repositoryCount }`;
     })
     .join("\n")}
 }
 `;
+    console.info("query:", JSON.stringify(query));
     const resp = await _sendRequest<LanguageCountResponse>(query);
     languageWithCounts.push(
       ...Object.entries(resp).map(([key, { repositoryCount }]) => {
         const language = map.get(key);
+        console.info("fetched.");
+        console.info(`${language.name}:`, repositoryCount);
         return { ...language, count: repositoryCount };
       })
     );
