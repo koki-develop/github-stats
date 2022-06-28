@@ -18,6 +18,9 @@ export type UsersPageProps = {
 const UsersPage: NextPage<UsersPageProps> = (props) => {
   const { users, orgs } = props;
 
+  const [todayUsers, yesterdayUsers] = users;
+  const [todayOrgs, yesterdayOrgs] = orgs;
+
   const options = useMemo(() => {
     const reversedUsers = users.concat().reverse();
     const reversedOrgs = orgs.concat().reverse();
@@ -59,7 +62,21 @@ const UsersPage: NextPage<UsersPageProps> = (props) => {
 
   return (
     <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <div>
+        <h1>Users</h1>
+        <p>
+          {todayUsers.count} ({todayUsers.count - yesterdayUsers.count})
+        </p>
+      </div>
+      <div>
+        <h1>Organizations</h1>
+        <p>
+          {todayOrgs.count} ({todayOrgs.count - yesterdayOrgs.count})
+        </p>
+      </div>
+      <div>
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
     </div>
   );
 };
