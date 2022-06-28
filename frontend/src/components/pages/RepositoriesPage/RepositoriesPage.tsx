@@ -1,5 +1,9 @@
 import { NextPage } from "next";
-import Highcharts, { SeriesLineOptions } from "highcharts";
+import Highcharts, {
+  PointOptionsObject,
+  SeriesLineOptions,
+  SeriesPieOptions,
+} from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Language } from "../../../models/language";
 import { useMemo } from "react";
@@ -82,6 +86,46 @@ const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
     return options;
   }, []);
 
+  const languagePieOptions = useMemo(() => {
+    const repoCount = repos[0].count;
+    const todayLanguages = languages[0].languages;
+    const topLanguages = todayLanguages.slice(0, 15);
+    const topLanguagesTotalPercentage =
+      (topLanguages.reduce<number>((prev, current) => {
+        return prev + current.count;
+      }, 0) /
+        repoCount) *
+      100;
+    const otherPercentage =
+      Math.floor((100 - topLanguagesTotalPercentage) * 100) / 100;
+
+    const data: PointOptionsObject[] = topLanguages.map((language) => {
+      return {
+        name: language.name,
+        y: Math.floor((language.count / repoCount) * 100 * 100) / 100,
+        color: language.color ?? "#000000",
+      };
+    });
+    data.push({
+      name: "Other",
+      y: otherPercentage,
+      color: "#888888",
+    });
+
+    const options: Highcharts.Options = {
+      chart: { type: "pie" },
+      title: { text: null },
+      series: [
+        {
+          type: "pie",
+          name: "Public Repositories",
+          data,
+        },
+      ],
+    };
+    return options;
+  }, []);
+
   return (
     <div>
       <div>
@@ -90,6 +134,10 @@ const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
 
       <div>
         <HighchartsReact highcharts={Highcharts} options={languagesOptions} />
+      </div>
+
+      <div>
+        <HighchartsReact highcharts={Highcharts} options={languagePieOptions} />
       </div>
     </div>
   );
