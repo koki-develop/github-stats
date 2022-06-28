@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { Language } from "../../../models/language";
 
 export type HomePageProps = {
@@ -30,7 +31,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
   return (
     <div>
       <div>
-        <h1>users</h1>
+        <h1>
+          <Link href="/users">Users</Link>
+        </h1>
         <p>updated: {users.updatedAt}</p>
         <p>today: {users.today}</p>
         <p>yesterday: {users.yesterday}</p>
