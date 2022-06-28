@@ -6,9 +6,11 @@ export default UsersPage;
 
 export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
   const users = data.map((row) => row.users);
+  const orgs = data.map((row) => row.orgs);
   return {
     props: {
-      data: users,
+      users,
+      orgs,
     },
   };
 };
