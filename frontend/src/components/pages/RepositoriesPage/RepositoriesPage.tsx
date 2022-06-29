@@ -20,32 +20,6 @@ export type RepositoriesPageProps = {
 const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
   const { repos, languages } = props;
 
-  const reposOptions = useMemo(() => {
-    const reversed = repos.concat().reverse();
-
-    const seriesCategories = reversed.map((row) =>
-      format(new Date(row.date), "yyyy-MM-dd")
-    );
-
-    const series = reversed.map((row) => row.count);
-
-    const options: Highcharts.Options = {
-      title: {
-        text: null,
-      },
-      yAxis: {
-        title: {
-          text: null,
-        },
-      },
-      xAxis: {
-        categories: seriesCategories,
-      },
-      series: [{ type: "line", name: "Public Repositories", data: series }],
-    };
-    return options;
-  }, []);
-
   const languagesOptions = useMemo(() => {
     const reversed = languages.concat().reverse();
 
