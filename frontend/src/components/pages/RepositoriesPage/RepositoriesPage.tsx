@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Highcharts, { PointOptionsObject, SeriesLineOptions } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Language } from "../../../models/language";
-import RepositoriesChart from "./RepositoriesChart";
+import RepositoriesLineChart from "./RepositoriesLineChart";
 import { useMemo } from "react";
 import { format } from "date-fns";
 
@@ -100,7 +100,7 @@ const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
   return (
     <div>
       <div>
-        <RepositoriesChart data={repos} />
+        <RepositoriesLineChart data={repos} />
       </div>
 
       <div>
