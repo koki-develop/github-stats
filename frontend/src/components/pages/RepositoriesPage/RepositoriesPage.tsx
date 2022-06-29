@@ -1,11 +1,8 @@
 import { NextPage } from "next";
-import Highcharts, {
-  PointOptionsObject,
-  SeriesLineOptions,
-  SeriesPieOptions,
-} from "highcharts";
+import Highcharts, { PointOptionsObject, SeriesLineOptions } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Language } from "../../../models/language";
+import RepositoriesChart from "./RepositoriesChart";
 import { useMemo } from "react";
 import { format } from "date-fns";
 
@@ -129,7 +126,7 @@ const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
   return (
     <div>
       <div>
-        <HighchartsReact highcharts={Highcharts} options={reposOptions} />
+        <RepositoriesChart data={repos} />
       </div>
 
       <div>
