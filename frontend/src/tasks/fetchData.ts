@@ -24,19 +24,35 @@ const _gzip = (data: string): Buffer => {
 };
 
 (async () => {
-  const numUsers = await fetchUserCount();
+  // 数値が安定しないので複数回叩いて最大値を取る
+  const numUsers = Math.max(
+    await fetchUserCount(),
+    await fetchUserCount(),
+    await fetchUserCount(),
+    await fetchUserCount()
+  );
   _writeData(
     "users.json",
     JSON.stringify({ date: new Date().toISOString(), count: numUsers })
   );
 
-  const numOrgs = await fetchOrganizationCount();
+  const numOrgs = Math.max(
+    await fetchOrganizationCount(),
+    await fetchOrganizationCount(),
+    await fetchOrganizationCount(),
+    await fetchOrganizationCount()
+  );
   _writeData(
     "orgs.json",
     JSON.stringify({ date: new Date().toISOString(), count: numOrgs })
   );
 
-  const numRepos = await fetchRepositoryCount();
+  const numRepos = Math.max(
+    await fetchRepositoryCount(),
+    await fetchRepositoryCount(),
+    await fetchRepositoryCount(),
+    await fetchRepositoryCount()
+  );
   _writeData(
     "repos.json",
     JSON.stringify({ date: new Date().toISOString(), count: numRepos })
