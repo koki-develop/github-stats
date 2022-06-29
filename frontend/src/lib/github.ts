@@ -123,10 +123,10 @@ export const fetchLanguageCounts = async (
 `;
     console.info("query:", JSON.stringify(query));
     const resp = await _sendRequest<LanguageCountResponse>(query);
+    console.info("fetched.");
     languageWithCounts.push(
       ...Object.entries(resp).map(([key, { repositoryCount }]) => {
         const language = map.get(key);
-        console.info("fetched.");
         console.info(`${language.name}:`, repositoryCount);
         return { ...language, count: repositoryCount };
       })
