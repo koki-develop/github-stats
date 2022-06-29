@@ -5,6 +5,7 @@ import { Language } from "../../../models/language";
 import RepositoriesLineChart from "./RepositoriesLineChart";
 import { useMemo } from "react";
 import { format } from "date-fns";
+import LanguagesLineChart from "./LanguagesLineChart";
 
 export type RepositoriesPageProps = {
   repos: {
@@ -104,7 +105,7 @@ const RepositoriesPage: NextPage<RepositoriesPageProps> = (props) => {
       </div>
 
       <div>
-        <HighchartsReact highcharts={Highcharts} options={languagesOptions} />
+        <LanguagesLineChart data={languages} />
       </div>
 
       <div>
