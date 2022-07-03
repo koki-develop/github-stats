@@ -2,7 +2,7 @@ import React, { memo, useMemo } from "react";
 import LineChart from "../../utils/LineChart";
 
 export type RepositoriesLineChartProps = {
-  data: {
+  repos: {
     date: string;
     count: number;
   }[];
@@ -10,16 +10,16 @@ export type RepositoriesLineChartProps = {
 
 const RepositoriesLineChart: React.FC<RepositoriesLineChartProps> = memo(
   (props) => {
-    const { data } = props;
+    const { repos } = props;
 
     const points = useMemo(() => {
-      return data.map((row) => ({
+      return repos.map((row) => ({
         date: row.date,
         data: [
           { name: "Public Repositories", color: "#7cb5ec", value: row.count },
         ],
       }));
-    }, [data]);
+    }, [repos]);
 
     return <LineChart points={points} />;
   }
