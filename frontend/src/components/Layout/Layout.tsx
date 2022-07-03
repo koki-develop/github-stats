@@ -18,11 +18,11 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
 
       <main className="py-4 px-2">{children}</main>
 
-      <footer className="flex flex-col items-center justify-center">
-        <small>&copy;2022 koki sato</small>
+      <footer className="flex flex-col items-center justify-center py-12">
+        <small className="mb-4">&copy;2022 koki sato</small>
 
         <ul className="flex flex-col items-center">
-          <li>
+          <li className="mb-2">
             <a
               href="https://github.com/koki-develop/github-stats"
               target="_blank"
@@ -31,7 +31,7 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
               View on GitHub
             </a>
           </li>
-          <li>
+          <li className="mb-2">
             <Link href="/privacy">Privacy Policy</Link>
           </li>
         </ul>
