@@ -75,7 +75,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
       date: record.date,
       data: [
         {
-          name: "orgs",
+          name: "Organizations",
           color: "#000000",
           value: record.count,
         },
