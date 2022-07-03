@@ -1,9 +1,14 @@
+import Head from "next/head";
 import React, { memo } from "react";
 import Layout from "../../Layout";
 
 const PrivacyPolicyPage: React.FC = memo(() => {
   return (
     <Layout>
+      <Head>
+        <title>GitHub Stats | Privacy Policy</title>
+      </Head>
+
       <div className="px-4">
         <div className="mb-4">
           <h2 className="text-center text-4xl">Privacy Policy</h2>

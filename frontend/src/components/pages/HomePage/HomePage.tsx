@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useMemo } from "react";
 import Layout from "../../Layout";
 import LineChart from "../../utils/LineChart";
@@ -84,6 +85,10 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   return (
     <Layout>
+      <Head>
+        <title>GitHub Stats</title>
+      </Head>
+
       {/* Public Repositories */}
       <div className="mb-4">
         <div className="mb-2 px-2">
