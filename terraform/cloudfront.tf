@@ -17,9 +17,9 @@ resource "aws_cloudfront_distribution" "frontend" {
     cached_methods         = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
-    min_ttl                = 0 # TODO: 適切に設定する
-    default_ttl            = 0 # TODO: 適切に設定する
-    max_ttl                = 0 # TODO: 適切に設定する
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
     forwarded_values {
       query_string = false
       cookies {
