@@ -134,20 +134,20 @@ const HomePage: NextPage<HomePageProps> = (props) => {
       </div>
 
       <div>
-        <div>
-          Users {users.latest.count} ({users.latest.diff})
+        <div className="flex justify-between">
+          <div className="text-lg">Users</div>
+          <div className="text-xl">{users.latest.count}</div>
         </div>
-        <div>updated: {users.latest.date}</div>
         <div>
           <LineChart points={usersData} />
         </div>
       </div>
 
       <div>
-        <div>
-          Orgs {orgs.latest.count} ({orgs.latest.diff})
+        <div className="flex justify-between">
+          <div className="text-lg">Organizations</div>
+          <div className="text-xl">{orgs.latest.count}</div>
         </div>
-        <div>updated: {orgs.latest.date}</div>
         <div>
           <LineChart points={orgsData} />
         </div>
