@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import React, { useMemo } from "react";
 import Highcharts, { SeriesOptionsType } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -39,13 +38,9 @@ const LineChart: React.FC<LineChartProps> = (props) => {
     const formattedPoints = pointsClone
       .sort((a, b) => (a.date > b.date ? 1 : -1))
       .map((point) => ({
-        date: format(new Date(point.date), "yyyy-MM-dd"),
+        date: new Date(point.date).toISOString().split("T")[0],
         data: point.data,
       }));
-    const [semiLast, last] = formattedPoints.slice(-2);
-    if (semiLast.date === last.date) {
-      formattedPoints.splice(-2, 1);
-    }
     return formattedPoints;
   }, [points]);
 
