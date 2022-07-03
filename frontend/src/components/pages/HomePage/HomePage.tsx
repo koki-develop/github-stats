@@ -92,7 +92,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
             <Number diff value={repos.latest.diff} />)
           </div>
         </div>
-        <div>
+        <div className="mb-2">
           <RepositoriesLineChart repos={repos.data} />
         </div>
       </div>
@@ -104,7 +104,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
             Public Repositories ( Per language )
           </div>
         </div>
-        <div>
+        <div className="mb-2">
           <LanguagesLineChart data={languages.data} />
         </div>
 
@@ -151,22 +151,30 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         </div>
       </div>
 
-      <div>
-        <div className="flex justify-between">
-          <div className="text-lg">Users</div>
-          <div className="text-xl">{users.latest.count}</div>
+      {/* Users */}
+      <div className="mb-4">
+        <div className="mb-2 px-2">
+          <div className="text-xl font-bold">Users</div>
+          <div className="text-sm">
+            <Number value={users.latest.count} /> (
+            <Number diff value={users.latest.diff} />)
+          </div>
         </div>
-        <div>
+        <div className="mb-2">
           <LineChart points={usersData} />
         </div>
       </div>
 
-      <div>
-        <div className="flex justify-between">
-          <div className="text-lg">Organizations</div>
-          <div className="text-xl">{orgs.latest.count}</div>
+      {/* Organizations */}
+      <div className="mb-4">
+        <div className="mb-2 px-2">
+          <div className="text-xl font-bold">Organizations</div>
+          <div className="text-sm">
+            <Number value={orgs.latest.count} /> (
+            <Number diff value={orgs.latest.diff} />)
+          </div>
         </div>
-        <div>
+        <div className="mb-2">
           <LineChart points={orgsData} />
         </div>
       </div>
