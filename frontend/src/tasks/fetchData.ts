@@ -23,13 +23,29 @@ const _gzip = (data: string): Buffer => {
   return zlib.gzipSync(data);
 };
 
+const _sleep = async (milliseconds: number) =>
+  new Promise((resolve) => setTimeout(resolve, milliseconds));
+
 (async () => {
   // 数値が安定しないので複数回叩いて最大値を取る
   const numUsers = Math.max(
     await fetchUserCount(),
-    await fetchUserCount(),
-    await fetchUserCount(),
-    await fetchUserCount()
+    await (async () => {
+      await _sleep(2000);
+      return fetchUserCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchUserCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchUserCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchUserCount();
+    })()
   );
   _writeData(
     "users.json",
@@ -38,9 +54,22 @@ const _gzip = (data: string): Buffer => {
 
   const numOrgs = Math.max(
     await fetchOrganizationCount(),
-    await fetchOrganizationCount(),
-    await fetchOrganizationCount(),
-    await fetchOrganizationCount()
+    await (async () => {
+      await _sleep(2000);
+      return fetchOrganizationCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchOrganizationCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchOrganizationCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchOrganizationCount();
+    })()
   );
   _writeData(
     "orgs.json",
@@ -49,9 +78,22 @@ const _gzip = (data: string): Buffer => {
 
   const numRepos = Math.max(
     await fetchRepositoryCount(),
-    await fetchRepositoryCount(),
-    await fetchRepositoryCount(),
-    await fetchRepositoryCount()
+    await (async () => {
+      await _sleep(2000);
+      return fetchRepositoryCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchRepositoryCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchRepositoryCount();
+    })(),
+    await (async () => {
+      await _sleep(2000);
+      return fetchRepositoryCount();
+    })()
   );
   _writeData(
     "repos.json",
