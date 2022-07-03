@@ -109,8 +109,8 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           <LanguagesLineChart data={languages.data} />
         </div>
 
-        <div className="mb-2 px-2 md:flex">
-          <div className="md:w-1/2">
+        <div className="mb-2 px-2 md:flex md:items-center">
+          <div className="mb-2 md:mb-0 md:w-1/2">
             <PieChart
               total={repos.latest.count}
               data={languages.latest.topLanguages.map((language) => ({
@@ -120,7 +120,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               }))}
             />
           </div>
-          <div className="flex h-96 overflow-y-auto md:w-1/2">
+          <div className="mb-2 flex h-96 overflow-y-auto border md:w-1/2">
             <table className="w-full">
               <thead>
                 <tr>

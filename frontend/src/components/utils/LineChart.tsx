@@ -15,7 +15,7 @@ type Point = {
 };
 
 const LineChart: React.FC<LineChartProps> = (props) => {
-  const { height, points, legend } = props;
+  const { height = 400, points, legend } = props;
 
   const formattedPoints = useMemo(() => {
     const pointsClone = points.concat();
@@ -87,7 +87,11 @@ const LineChart: React.FC<LineChartProps> = (props) => {
     return options;
   }, []);
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <div style={{ height }}>
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </div>
+  );
 };
 
 export default LineChart;
