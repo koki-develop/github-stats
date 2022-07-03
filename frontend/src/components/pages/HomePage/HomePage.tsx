@@ -82,36 +82,54 @@ const HomePage: NextPage<HomePageProps> = (props) => {
   return (
     <div>
       <div>
-        <div>
-          Public Repository {repos.latest.count} ({repos.latest.diff})
+        <div className="flex justify-between">
+          <div className="text-lg">Public Repositories</div>
+          <div className="text-xl">{repos.latest.diff}</div>
         </div>
-        <div>updated: {repos.latest.date}</div>
         <div>
           <RepositoriesLineChart repos={repos.data} />
         </div>
+      </div>
+
+      <div>
+        <div className="text-lg">Public Repositories ( per language )</div>
         <div>
-          <div>Languages</div>
-          <div>updated: {languages.latest.date}</div>
-          <div>
-            <LanguagesLineChart data={languages.data} />
-          </div>
-          <div>
-            <PieChart
-              total={repos.latest.count}
-              data={languages.latest.topLanguages.map((language) => ({
-                name: language.name,
-                color: language.color,
-                value: language.count,
-              }))}
-            />
-          </div>
-          <div>
-            {languages.latest.topLanguages.map((language) => (
-              <div key={language.name}>
-                {language.name}: {language.count} ({language.diff})
-              </div>
-            ))}
-          </div>
+          <LanguagesLineChart data={languages.data} />
+        </div>
+        <div>
+          <PieChart
+            total={repos.latest.count}
+            data={languages.latest.topLanguages.map((language) => ({
+              name: language.name,
+              color: language.color,
+              value: language.count,
+            }))}
+          />
+        </div>
+        <div className="flex justify-center">
+          <table className="table-auto">
+            <thead>
+              <tr>
+                <th className="px-4">Ranking</th>
+                <th className="px-4">Language</th>
+                <th className="px-4">Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {languages.latest.topLanguages.map((language, i) => (
+                <tr key={language.name}>
+                  <td className="border px-4 py-2 text-center">{i + 1}</td>
+                  <td className="border px-4 py-2 text-center">
+                    {language.name}
+                  </td>
+                  <td className="border px-4 py-2 text-center">
+                    <div>{language.count}</div>
+                    <div className="text-xs">({language.diff})</div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
