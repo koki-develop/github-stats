@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import PieChart from "../../utils/PieChart";
 import LanguagesLineChart from "../RepositoriesPage/LanguagesLineChart";
 import RepositoriesLineChart from "../RepositoriesPage/RepositoriesLineChart";
 
@@ -47,6 +48,16 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           <div>updated: {languages.latest.date}</div>
           <div>
             <LanguagesLineChart data={languages.data} />
+          </div>
+          <div>
+            <PieChart
+              total={repos.latest.count}
+              data={languages.latest.topLanguages.map((language) => ({
+                name: language.name,
+                color: language.color,
+                value: language.count,
+              }))}
+            />
           </div>
           <div>
             {languages.latest.topLanguages.map((language) => (
