@@ -76,6 +76,10 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: create dotenv
+        run: |
+          echo "NEXT_PUBLIC_STAGE=production" >> .env.local
+          echo "NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.GA_MEASUREMENT_ID }}" >> .env.local
       - name: build
         run: yarn run build
       - name: upload to s3
