@@ -1,8 +1,13 @@
 import React from "react";
 import { AppProps } from "next/app";
+import Layout from "../Layout";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 };
 
 export default App;
