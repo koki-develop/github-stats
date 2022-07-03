@@ -21,6 +21,7 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
         <h1 className="text-4xl font-bold">
           <Link href="/">GitHub Stats</Link>
         </h1>
+        <p>Unofficial GitHub statistics dashboard.</p>
       </header>
 
       <main className="py-4 px-2">{children}</main>
