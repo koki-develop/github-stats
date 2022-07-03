@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useMemo } from "react";
 import LineChart from "../../utils/LineChart";
 import PieChart from "../../utils/PieChart";
 import LanguagesLineChart from "../RepositoriesPage/LanguagesLineChart";
@@ -52,6 +53,32 @@ export type HomePageProps = {
 const HomePage: NextPage<HomePageProps> = (props) => {
   const { repos, languages, users, orgs } = props;
 
+  const usersData = useMemo(() => {
+    return users.data.map((record) => ({
+      date: record.date,
+      data: [
+        {
+          name: "Users",
+          color: "#7cb5ec",
+          value: record.count,
+        },
+      ],
+    }));
+  }, [users.data]);
+
+  const orgsData = useMemo(() => {
+    return orgs.data.map((record) => ({
+      date: record.date,
+      data: [
+        {
+          name: "orgs",
+          color: "#000000",
+          value: record.count,
+        },
+      ],
+    }));
+  }, [orgs.data]);
+
   return (
     <div>
       <div>
@@ -93,6 +120,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           Users {users.latest.count} ({users.latest.diff})
         </div>
         <div>updated: {users.latest.date}</div>
+        <div>
+          <LineChart points={usersData} />
+        </div>
       </div>
 
       <div>
@@ -100,6 +130,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           Orgs {orgs.latest.count} ({orgs.latest.diff})
         </div>
         <div>updated: {orgs.latest.date}</div>
+        <div>
+          <LineChart points={orgsData} />
+        </div>
       </div>
     </div>
   );
