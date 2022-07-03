@@ -7,7 +7,7 @@ export type PieChartProps = {
   data: {
     name: string;
     value: number;
-    color?: string;
+    color: string;
   }[];
 };
 
@@ -20,7 +20,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
     const formattedData = data
       .map((row) => ({
         name: row.name,
-        color: row.color ?? "#000000",
+        color: row.color,
         percentage: floor((row.value / total) * 100),
       }))
       .reduce((prev, current) => {
@@ -44,13 +44,20 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   const options = useMemo(() => {
     const seriesData = formattedData.map((row) => ({
       name: row.name,
-      color: row.color ?? "#000000",
+      color: row.color,
       y: row.percentage,
     }));
 
     const options: Highcharts.Options = {
       chart: { height: 325, margin: 0 },
       title: { text: null },
+      tooltip: {
+        pointFormatter() {
+          return `<span style="color:${this.color}">●</span> ${
+            this.series.name
+          }: <b>${this.y.toLocaleString()}</b>%`;
+        },
+      },
       series: [{ type: "pie", name: "Public Repositories", data: seriesData }],
     };
     return options;

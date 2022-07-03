@@ -76,6 +76,13 @@ const LineChart: React.FC<LineChartProps> = (props) => {
       chart: {
         height,
       },
+      tooltip: {
+        pointFormatter() {
+          return `<span style="color:${this.color}">●</span> ${
+            this.series.name
+          }: <b>${this.y.toLocaleString()}</b>`;
+        },
+      },
       title: { text: null },
       yAxis: { title: { text: null } },
       xAxis: { categories: dates },
