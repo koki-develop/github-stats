@@ -6,3 +6,4 @@
 !/data/.keep
 
 /src/data.json
+/.env.local
