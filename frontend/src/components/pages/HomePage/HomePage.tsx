@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import LanguagesLineChart from "../RepositoriesPage/LanguagesLineChart";
 import RepositoriesLineChart from "../RepositoriesPage/RepositoriesLineChart";
 
 export type HomePageProps = {
@@ -21,6 +22,10 @@ export type HomePageProps = {
         diff: number;
       }[];
     };
+    data: {
+      date: string;
+      languages: { name: string; color: string; count: number }[];
+    }[];
   };
 };
 
@@ -40,6 +45,9 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         <div>
           <div>Languages</div>
           <div>updated: {languages.latest.date}</div>
+          <div>
+            <LanguagesLineChart data={languages.data} />
+          </div>
           <div>
             {languages.latest.topLanguages.map((language) => (
               <div key={language.name}>

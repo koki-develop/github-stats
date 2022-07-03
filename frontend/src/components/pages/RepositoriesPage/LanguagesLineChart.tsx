@@ -5,7 +5,7 @@ import LineChart from "../../utils/LineChart";
 export type LanguagesLineChartProps = {
   data: {
     date: string;
-    languages: Language[];
+    languages: { name: string; color: string; count: number }[];
   }[];
 };
 

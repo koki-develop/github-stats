@@ -23,34 +23,48 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     .concat()
     .sort((a, b) => b.count - a.count)
     .slice(0, 50);
+  const languagesFilteredData = languagesSortedData.map((data) => {
+    return {
+      date: data.date,
+      languages: data.languages
+        .filter((language) =>
+          languagesTodayTopData.find(
+            (topLanguage) => topLanguage.name === language.name
+          )
+        )
+        .map((language) => ({ color: "#000000", ...language })),
+    };
+  });
+
+  const props: HomePageProps = {
+    repos: {
+      latest: {
+        ...reposTodayData,
+        diff: reposDiff,
+      },
+      data: reposSortedData,
+    },
+    languages: {
+      latest: {
+        date: languagesTodayData.date,
+        topLanguages: languagesTodayTopData.map((language) => ({
+          name: language.name,
+          color: language.color ?? "#000000",
+          count: language.count,
+          diff: (() => {
+            const yesterdayLanguage = languagesYesterdayData.languages.find(
+              (yesterdayLanguage) => yesterdayLanguage.name === language.name
+            );
+            if (!yesterdayLanguage) return language.count;
+            return language.count - yesterdayLanguage.count;
+          })(),
+        })),
+      },
+      data: languagesFilteredData,
+    },
+  };
 
   return {
-    props: {
-      repos: {
-        latest: {
-          ...reposTodayData,
-          diff: reposDiff,
-        },
-        diff: reposDiff,
-        data: reposSortedData,
-      },
-      languages: {
-        latest: {
-          date: languagesTodayData.date,
-          topLanguages: languagesTodayTopData.map((language) => ({
-            name: language.name,
-            color: language.color ?? "#000000",
-            count: language.count,
-            diff: (() => {
-              const yesterdayLanguage = languagesYesterdayData.languages.find(
-                (yesterdayLanguage) => yesterdayLanguage.name === language.name
-              );
-              if (!yesterdayLanguage) return language.count;
-              return language.count - yesterdayLanguage.count;
-            })(),
-          })),
-        },
-      },
-    },
+    props,
   };
 };
