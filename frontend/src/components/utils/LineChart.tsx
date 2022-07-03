@@ -66,8 +66,8 @@ const LineChart: React.FC<LineChartProps> = (props) => {
         }
       }
     }
-    return Array.from(m.entries()).map(([name, [color, values]]) => {
-      return { type: "line", name, color, data: values };
+    return Array.from(m.entries()).map(([name, [color, values]], i) => {
+      return { type: "line", visible: i <= 12, name, color, data: values };
     });
   }, []);
 
