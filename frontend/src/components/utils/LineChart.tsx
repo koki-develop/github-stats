@@ -5,6 +5,7 @@ import HighchartsReact from "highcharts-react-official";
 
 export type LineChartProps = {
   points: Point[];
+  legend?: boolean;
 };
 
 type Point = {
@@ -13,7 +14,7 @@ type Point = {
 };
 
 const LineChart: React.FC<LineChartProps> = (props) => {
-  const { points } = props;
+  const { points, legend } = props;
 
   const formattedPoints = useMemo(() => {
     const pointsClone = points.concat();
@@ -74,6 +75,9 @@ const LineChart: React.FC<LineChartProps> = (props) => {
       title: { text: null },
       yAxis: { title: { text: null } },
       xAxis: { categories: dates },
+      legend: {
+        enabled: legend,
+      },
       series,
     };
     return options;
