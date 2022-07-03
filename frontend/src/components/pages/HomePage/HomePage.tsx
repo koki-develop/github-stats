@@ -109,6 +109,20 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           <div className="text-xl font-bold">
             Public Repositories ( Per language )
           </div>
+          <div className="text-sm">
+            The languages included here are only those{" "}
+            <a
+              className="text-blue-500 underline"
+              href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              supported by GitHub
+            </a>{" "}
+            whose type is{" "}
+            <code className="rounded bg-gray-100 px-1">programming</code> or{" "}
+            <code className="rounded bg-gray-100 px-1">markup</code>.
+          </div>
         </div>
         <div className="mb-2">
           <LanguagesLineChart data={languages.data} />
