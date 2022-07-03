@@ -17,6 +17,7 @@ const LanguagesLineChart: React.FC<LanguagesLineChartProps> = (props) => {
       date: row.date,
       data: row.languages.map((language) => ({
         name: language.name,
+        color: language.color,
         value: language.count,
       })),
     }));

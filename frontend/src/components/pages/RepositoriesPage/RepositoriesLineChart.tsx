@@ -15,7 +15,9 @@ const RepositoriesLineChart: React.FC<RepositoriesLineChartProps> = memo(
     const points = useMemo(() => {
       return data.map((row) => ({
         date: row.date,
-        data: [{ name: "Public Repositories", value: row.count }],
+        data: [
+          { name: "Public Repositories", color: "#7cb5ec", value: row.count },
+        ],
       }));
     }, [data]);
 
