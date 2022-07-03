@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import LineChart from "../../utils/LineChart";
 import PieChart from "../../utils/PieChart";
 import LanguagesLineChart from "../RepositoriesPage/LanguagesLineChart";
 import RepositoriesLineChart from "../RepositoriesPage/RepositoriesLineChart";
@@ -28,10 +29,28 @@ export type HomePageProps = {
       languages: { name: string; color: string; count: number }[];
     }[];
   };
+
+  users: {
+    latest: {
+      date: string;
+      count: number;
+      diff: number;
+    };
+    data: { date: string; count: number }[];
+  };
+
+  orgs: {
+    latest: {
+      date: string;
+      count: number;
+      diff: number;
+    };
+    data: { date: string; count: number }[];
+  };
 };
 
 const HomePage: NextPage<HomePageProps> = (props) => {
-  const { repos, languages } = props;
+  const { repos, languages, users, orgs } = props;
 
   return (
     <div>
@@ -67,6 +86,20 @@ const HomePage: NextPage<HomePageProps> = (props) => {
             ))}
           </div>
         </div>
+      </div>
+
+      <div>
+        <div>
+          Users {users.latest.count} ({users.latest.diff})
+        </div>
+        <div>updated: {users.latest.date}</div>
+      </div>
+
+      <div>
+        <div>
+          Orgs {orgs.latest.count} ({orgs.latest.diff})
+        </div>
+        <div>updated: {orgs.latest.date}</div>
       </div>
     </div>
   );

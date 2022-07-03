@@ -36,6 +36,22 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     };
   });
 
+  // users
+  const usersData = data.map((record) => record.users);
+  const usersSortedData = usersData
+    .concat()
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+  const [usersTodayData, usersYesterdayData] = usersSortedData;
+  const usersDiff = usersTodayData.count - usersYesterdayData.count;
+
+  // orgs
+  const orgsData = data.map((record) => record.orgs);
+  const orgsSortedData = orgsData
+    .concat()
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+  const [orgsTodayData, orgsYesterdayData] = orgsSortedData;
+  const orgsDiff = orgsTodayData.count - orgsYesterdayData.count;
+
   const props: HomePageProps = {
     repos: {
       latest: {
@@ -44,6 +60,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
       },
       data: reposSortedData,
     },
+
     languages: {
       latest: {
         date: languagesTodayData.date,
@@ -61,6 +78,22 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
         })),
       },
       data: languagesFilteredData,
+    },
+
+    users: {
+      latest: {
+        ...usersTodayData,
+        diff: usersDiff,
+      },
+      data: usersSortedData,
+    },
+
+    orgs: {
+      latest: {
+        ...orgsTodayData,
+        diff: orgsDiff,
+      },
+      data: orgsSortedData,
     },
   };
 
