@@ -12,11 +12,11 @@ const PrivacyPolicyPage: NextPage = () => {
 
       <div className="px-4">
         <div className="mb-4">
-          <h2 className="text-center text-4xl">Privacy Policy</h2>
+          <h2 className="text-3xl">Privacy Policy</h2>
         </div>
 
-        <div className="mb-4 flex flex-col items-center">
-          <h3 className="text-3xl">Disclaimer</h3>
+        <div className="mb-4">
+          <h3 className="text-2xl">Disclaimer</h3>
           <div>
             While every effort has been made to ensure that the content and
             information on this site is as accurate as possible, it is possible
@@ -27,8 +27,8 @@ const PrivacyPolicyPage: NextPage = () => {
           </div>
         </div>
 
-        <div className="mb-4 flex flex-col items-center">
-          <h3 className="text-3xl">Use of Access Analysis Tools</h3>
+        <div className="mb-4">
+          <h3 className="text-2xl">Use of Access Analysis Tools</h3>
           <div>
             This website uses Google Analytics, an access analysis tool provided
             by Google. Google Analytics uses cookies to collect traffic data.
@@ -48,8 +48,8 @@ const PrivacyPolicyPage: NextPage = () => {
           </div>
         </div>
 
-        <div className="mb-4 flex flex-col items-center">
-          <div className="text-3xl">Updating Privacy Policy</div>
+        <div className="mb-4">
+          <div className="text-2xl">Updating Privacy Policy</div>
           <div>
             In addition to complying with the Japanese laws and regulations
             applicable to personal information, this website will review and
