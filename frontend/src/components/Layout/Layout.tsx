@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import React, { memo } from "react";
 
@@ -10,6 +11,12 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
 
   return (
     <div>
+      <Head>
+        <meta
+          name="description"
+          content="Github stats is an unofficial dashboard that displays various github statistics."
+        />
+      </Head>
       <header className="bg-black px-4 py-2 text-white">
         <h1 className="text-4xl font-bold">
           <Link href="/">GitHub Stats</Link>
