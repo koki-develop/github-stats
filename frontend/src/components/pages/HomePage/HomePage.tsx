@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { NextPage } from "next";
 import { useMemo } from "react";
 import Layout from "../../Layout";
@@ -119,7 +120,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               }))}
             />
           </div>
-          <div className="flex h-96 overflow-y-auto border md:w-1/2">
+          <div className="flex h-96 overflow-y-auto md:w-1/2">
             <table className="w-full">
               <thead>
                 <tr>
@@ -130,12 +131,15 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               </thead>
               <tbody>
                 {languages.latest.topLanguages.map((language, i) => (
-                  <tr key={language.name}>
-                    <td className="border border-l-0 px-4 text-center">
-                      {i + 1}
-                    </td>
+                  <tr
+                    key={language.name}
+                    className={classNames({
+                      "bg-gray-50": i % 2 === 0,
+                    })}
+                  >
+                    <td className="border px-4 text-center">{i + 1}</td>
                     <td className="border px-4 text-center">{language.name}</td>
-                    <td className="border border-r-0 px-4 py-1 text-center">
+                    <td className="border px-4 py-1 text-center">
                       <div>
                         <Number value={language.count} />
                       </div>
