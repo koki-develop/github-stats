@@ -23,7 +23,7 @@ const LanguagesLineChart: React.FC<LanguagesLineChartProps> = (props) => {
     }));
   }, [data]);
 
-  return <LineChart points={points} />;
+  return <LineChart points={points} legend />;
 };
 
 export default LanguagesLineChart;
