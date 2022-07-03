@@ -136,8 +136,12 @@ const HomePage: NextPage<HomePageProps> = (props) => {
                     </td>
                     <td className="border px-4 text-center">{language.name}</td>
                     <td className="border border-r-0 px-4 py-1 text-center">
-                      <div>{language.count}</div>
-                      <div className="text-xs">({language.diff})</div>
+                      <div>
+                        <Number value={language.count} />
+                      </div>
+                      <div className="text-xs">
+                        (<Number diff value={language.diff} />)
+                      </div>
                     </td>
                   </tr>
                 ))}
