@@ -103,11 +103,11 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         </div>
       </div>
 
-      {/* Public Repositories Per Language */}
+      {/* Public Repositories By Language */}
       <div className="mb-4">
         <div className="mb-2 px-2">
           <div className="text-xl font-bold">
-            Public Repositories ( Per language )
+            Public Repositories ( By language )
           </div>
           <div className="text-sm">
             The languages included here are only those{" "}
