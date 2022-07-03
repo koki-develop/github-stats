@@ -49,6 +49,21 @@ const PieChart: React.FC<PieChartProps> = (props) => {
     }));
 
     const options: Highcharts.Options = {
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 350,
+            },
+            chartOptions: {
+              chart: {
+                margin: 0,
+                height: 300,
+              },
+            },
+          },
+        ],
+      },
       title: { text: null },
       series: [{ type: "pie", name: "Public Repositories", data: seriesData }],
     };
