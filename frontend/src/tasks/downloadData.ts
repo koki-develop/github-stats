@@ -40,7 +40,13 @@ type Data = {
     const [users, usersOk] = await _download(
       path.join(dateString, "users.json.gz")
     );
-    if (!usersOk) break;
+    if (!usersOk) {
+      if (i === 0) {
+        date.setUTCDate(date.getUTCDate() - 1);
+        continue;
+      }
+      break;
+    }
     const [orgs, orgsOk] = await _download(
       path.join(dateString, "orgs.json.gz")
     );
