@@ -1,8 +1,9 @@
+import { NextPage } from "next";
 import Head from "next/head";
-import React, { memo } from "react";
+import React from "react";
 import Layout from "../../Layout";
 
-const PrivacyPolicyPage: React.FC = memo(() => {
+const PrivacyPolicyPage: NextPage = () => {
   return (
     <Layout>
       <Head>
@@ -59,8 +60,6 @@ const PrivacyPolicyPage: React.FC = memo(() => {
       </div>
     </Layout>
   );
-});
-
-PrivacyPolicyPage.displayName = "PrivacyPolicyPage";
+};
 
 export default PrivacyPolicyPage;
