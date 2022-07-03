@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
 
       <main className="py-4 px-2">{children}</main>
 
-      <footer className="flex flex-col items-center justify-center bg-black py-8 text-sm text-white">
+      <footer className="flex flex-col items-center justify-center py-8 text-sm">
         <small className="mb-4">&copy;2022 koki sato</small>
 
         <ul className="flex flex-col items-center">
