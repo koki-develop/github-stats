@@ -9,7 +9,7 @@ export type LineChartProps = {
 
 type Point = {
   date: string;
-  data: { name: string; value: number }[];
+  data: { name: string; color?: string; value: number }[];
 };
 
 const LineChart: React.FC<LineChartProps> = (props) => {
@@ -52,19 +52,20 @@ const LineChart: React.FC<LineChartProps> = (props) => {
   }, [formattedPoints]);
 
   const series: SeriesOptionsType[] = useMemo(() => {
-    const m = new Map<string, number[]>([]);
+    const m = new Map<string, [string, number[]]>([]);
     for (const point of formattedPoints) {
       for (const row of point.data) {
-        const values = m.get(row.name);
-        if (values) {
-          m.set(row.name, [...values, row.value]);
+        const color_values = m.get(row.name);
+        if (color_values) {
+          const [color = "#000000", values] = color_values;
+          m.set(row.name, [color, [...values, row.value]]);
         } else {
-          m.set(row.name, [row.value]);
+          m.set(row.name, [row.color ?? "#000000", [row.value]]);
         }
       }
     }
-    return Array.from(m.entries()).map(([name, values]) => {
-      return { type: "line", name, data: values };
+    return Array.from(m.entries()).map(([name, [color, values]]) => {
+      return { type: "line", name, color, data: values };
     });
   }, []);
 
