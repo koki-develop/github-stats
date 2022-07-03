@@ -15,6 +15,7 @@ resource "aws_cloudfront_distribution" "frontend" {
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
+    compress               = true
     min_ttl                = 0 # TODO: 適切に設定する
     default_ttl            = 0 # TODO: 適切に設定する
     max_ttl                = 0 # TODO: 適切に設定する
