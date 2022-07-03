@@ -10,8 +10,10 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
 
   return (
     <div>
-      <header>
-        <h1 className=" text-4xl font-bold">GitHub Stats</h1>
+      <header className="bg-black px-4 py-2 text-white">
+        <h1 className="text-4xl font-bold">
+          <Link href="/">GitHub Stats</Link>
+        </h1>
       </header>
 
       <main className="py-4 px-2">{children}</main>

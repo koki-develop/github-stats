@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useMemo } from "react";
+import Layout from "../../Layout";
 import LineChart from "../../utils/LineChart";
 import PieChart from "../../utils/PieChart";
 import LanguagesLineChart from "./LanguagesLineChart";
@@ -80,7 +81,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
   }, [orgs.data]);
 
   return (
-    <div>
+    <Layout>
       <div>
         <div className="flex justify-between">
           <div className="text-lg">Public Repositories</div>
@@ -154,7 +155,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           <LineChart points={orgsData} />
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
