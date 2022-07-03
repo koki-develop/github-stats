@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useMemo } from "react";
 import Layout from "../../Layout";
 import LineChart from "../../utils/LineChart";
+import Number from "../../utils/Number";
 import PieChart from "../../utils/PieChart";
 import LanguagesLineChart from "./LanguagesLineChart";
 import RepositoriesLineChart from "./RepositoriesLineChart";
@@ -82,23 +83,33 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   return (
     <Layout>
-      <div>
-        <div className="flex justify-between">
-          <div className="text-lg">Public Repositories</div>
-          <div className="text-xl">{repos.latest.count}</div>
+      {/* Public Repositories */}
+      <div className="mb-4">
+        <div className="mb-2 px-2">
+          <div className="text-xl font-bold">Public Repositories</div>
+          <div className="text-sm">
+            <Number value={repos.latest.count} /> (
+            <Number diff value={repos.latest.diff} />)
+          </div>
         </div>
         <div>
           <RepositoriesLineChart repos={repos.data} />
         </div>
       </div>
 
-      <div>
-        <div className="text-lg">Public Repositories ( per language )</div>
+      {/* Public Repositories Per Language */}
+      <div className="mb-4">
+        <div className="mb-2 px-2">
+          <div className="text-xl font-bold">
+            Public Repositories ( Per language )
+          </div>
+        </div>
         <div>
           <LanguagesLineChart data={languages.data} />
         </div>
-        <div className="flex">
-          <div className="w-1/2">
+
+        <div className="mb-2 px-2 md:flex">
+          <div className="md:w-1/2">
             <PieChart
               total={repos.latest.count}
               data={languages.latest.topLanguages.map((language) => ({
@@ -108,7 +119,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
               }))}
             />
           </div>
-          <div className="flex h-96 w-1/2 overflow-y-auto border">
+          <div className="flex h-96 overflow-y-auto border md:w-1/2">
             <table className="w-full">
               <thead>
                 <tr>
