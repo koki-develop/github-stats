@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { Language } from "../../../models/language";
-import RepositoriesLineChart from "./RepositoriesLineChart";
+import RepositoriesLineChart from "../HomePage/RepositoriesLineChart";
 import { useMemo } from "react";
-import LanguagesLineChart from "./LanguagesLineChart";
+import LanguagesLineChart from "../HomePage/LanguagesLineChart";
 import PieChart from "../../utils/PieChart";
 
 export type RepositoriesPageProps = {
