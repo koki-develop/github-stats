@@ -7,6 +7,7 @@ import {
   fetchRepositoryCount,
   fetchUserCount,
 } from "../lib/github";
+import { Language } from "../models/language";
 
 const dataDir = path.join(process.cwd(), "data");
 
@@ -26,6 +27,7 @@ const _gzip = (data: string): Buffer => {
 const _sleep = async (milliseconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
 
+// FIXME: 急ぎで書いたので汚すぎる
 (async () => {
   // 数値が安定しないので複数回叩いて最大値を取る
   const numUsers = Math.max(
@@ -102,6 +104,18 @@ const _sleep = async (milliseconds: number) =>
 
   const languageWithoutCounts = JSON.parse(_loadData("languages.json"));
   const languages = await fetchLanguageCounts(languageWithoutCounts);
+  for (let i = 0; i < 5; i++) {
+    await _sleep(2000);
+    const nextLanguages = await fetchLanguageCounts(languageWithoutCounts);
+    for (const nextLanguage of nextLanguages) {
+      const prevLanguageIndex = languages.findIndex(language => language.name === nextLanguage.name);
+      if (prevLanguageIndex === -1) throw new Error(`language not found: ${nextLanguage.name}`);
+      if (languages[prevLanguageIndex].count < nextLanguage.count) {
+        languages[prevLanguageIndex] = nextLanguage;
+      }
+    }
+  }
+
   _writeData(
     "languages.json",
     JSON.stringify({ date: new Date().toISOString(), languages })

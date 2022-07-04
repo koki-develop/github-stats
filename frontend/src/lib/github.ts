@@ -42,7 +42,6 @@ export const fetchUserCount = async (): Promise<number> => {
       }
     }
   `;
-  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<UserCountResponse>(query);
   const { userCount } = resp.user;
   console.info("fetched:", userCount);
@@ -64,7 +63,6 @@ export const fetchOrganizationCount = async (): Promise<number> => {
       }
     }
   `;
-  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<OrganizationCountResponse>(query);
   const { userCount } = resp.org;
   console.info("fetched:", userCount);
@@ -86,7 +84,6 @@ export const fetchRepositoryCount = async (): Promise<number> => {
       }
     }
   `;
-  console.info("query:", JSON.stringify(query));
   const resp = await _sendRequest<RepositoryCountResponse>(query);
   const { repositoryCount } = resp.repo;
   console.info("fetched:", repositoryCount);
@@ -104,9 +101,10 @@ export const fetchLanguageCounts = async (
 ): Promise<Language[]> => {
   console.info("languages:", languages.length);
   const languageWithCounts: Language[] = [];
+  const languagesClone = languages.concat();
 
-  while (languages.length > 0) {
-    const nextLanguages = languages.splice(0, 50);
+  while (languagesClone.length > 0) {
+    const nextLanguages = languagesClone.splice(0, 50);
     console.info("next:", JSON.stringify(nextLanguages));
     const map = new Map<string, Omit<Language, "count">>(
       nextLanguages.map((language) => [`a${_md5(language.name)}`, language])
@@ -121,7 +119,6 @@ export const fetchLanguageCounts = async (
     .join("\n")}
 }
 `;
-    console.info("query:", JSON.stringify(query));
     const resp = await _sendRequest<LanguageCountResponse>(query);
     console.info("fetched.");
     languageWithCounts.push(
@@ -134,7 +131,7 @@ export const fetchLanguageCounts = async (
   }
 
   return languageWithCounts
-    .filter((language) => language.count !== 0)
+    // .filter((language) => language.count !== 0)
     .sort((a, b) => b.count - a.count);
 };
 
