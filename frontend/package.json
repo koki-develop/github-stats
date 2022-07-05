@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
+    "fmt": "prettier --write .",
     "prebuild": "yarn run download:data",
     "build": "next build && next export",
     "fetch:languages": "ts-node src/tasks/fetchLanguages.ts",
