@@ -41,7 +41,11 @@ type UserCountResponse = {
 export const fetchUserCount = async (): Promise<number> => {
   console.info("fetching user count...");
   const query = gql`
-    { user: search(type: USER, query: "type:user") { userCount } }
+    {
+      user: search(type: USER, query: "type:user") {
+        userCount
+      }
+    }
   `;
   const resp = await _sendRequest<UserCountResponse>(query);
   const { userCount } = resp.user;
@@ -58,7 +62,11 @@ type OrganizationCountResponse = {
 export const fetchOrganizationCount = async (): Promise<number> => {
   console.info("fetching organization count...");
   const query = gql`
-    { org: search(type: USER, query: "type:org") { userCount } }
+    {
+      org: search(type: USER, query: "type:org") {
+        userCount
+      }
+    }
   `;
   const resp = await _sendRequest<OrganizationCountResponse>(query);
   const { userCount } = resp.org;
@@ -75,7 +83,11 @@ type RepositoryCountResponse = {
 export const fetchRepositoryCount = async (): Promise<number> => {
   console.info("fetching repository count...");
   const query = gql`
-    { repo: search(type: REPOSITORY, query: "is:public") { repositoryCount } }
+    {
+      repo: search(type: REPOSITORY, query: "is:public") {
+        repositoryCount
+      }
+    }
   `;
   const resp = await _sendRequest<RepositoryCountResponse>(query);
   const { repositoryCount } = resp.repo;
@@ -97,7 +109,7 @@ export const fetchLanguageCounts = async (
   const languagesClone = languages.concat();
 
   while (languagesClone.length > 0) {
-    const nextLanguages = languagesClone.splice(0, 50);
+    const nextLanguages = languagesClone.splice(0, 60);
     console.info("next:", JSON.stringify(nextLanguages));
     const map = new Map<string, Omit<Language, "count">>(
       nextLanguages.map(language => [`a${_md5(language.name)}`, language]),
@@ -123,11 +135,7 @@ export const fetchLanguageCounts = async (
     );
   }
 
-  return (
-    languageWithCounts
-      // .filter((language) => language.count !== 0)
-      .sort((a, b) => b.count - a.count)
-  );
+  return languageWithCounts.sort((a, b) => b.count - a.count);
 };
 
 const _sendRequest = async <T>(query: string): Promise<T> => {
