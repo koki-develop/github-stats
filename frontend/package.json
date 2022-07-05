@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "fmt": "prettier --write .",
+    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
+    "fmt": "yarn lint --fix && prettier --write .",
     "prebuild": "yarn run download:data",
     "build": "next build && next export",
     "fetch:languages": "ts-node src/tasks/fetchLanguages.ts",
