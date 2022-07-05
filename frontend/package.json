@@ -29,6 +29,7 @@
     "@types/react": "^18.0.14",
     "autoprefixer": "^10.4.7",
     "aws-sdk": "^2.1162.0",
+    "eslint": "^8.19.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
     "js-yaml": "^4.1.0",
