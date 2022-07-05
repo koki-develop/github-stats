@@ -1,4 +1,4 @@
-import Highcharts, { PointOptionsObject, SeriesLineOptions } from "highcharts";
+import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import React, { useMemo } from "react";
 

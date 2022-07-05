@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
 import Highcharts, { SeriesOptionsType } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import React, { useMemo } from "react";
 
 export type LineChartProps = {
   height?: number;

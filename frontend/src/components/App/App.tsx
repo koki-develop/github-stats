@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import React, { useEffect, useRef } from "react";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const rendered = useRef<boolean>(false);

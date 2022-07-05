@@ -7,7 +7,6 @@ import {
   fetchRepositoryCount,
   fetchUserCount,
 } from "../lib/github";
-import { Language } from "../models/language";
 
 const dataDir = path.join(process.cwd(), "data");
 

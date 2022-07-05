@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { Language } from "../../../models/language";
 import LineChart from "../../utils/LineChart";
 
 export type LanguagesLineChartProps = {
