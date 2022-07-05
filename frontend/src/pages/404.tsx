@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Error from "next/error";
+import React from "react";
 
 const NotFoundPage: NextPage = () => {
   return (

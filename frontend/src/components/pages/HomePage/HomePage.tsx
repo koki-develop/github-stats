@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { NextPage } from "next";
 import Head from "next/head";
-import { useMemo } from "react";
+import React, { useMemo } from "react"
 import Layout from "../../Layout";
 import LineChart from "../../utils/LineChart";
 import Number from "../../utils/Number";
