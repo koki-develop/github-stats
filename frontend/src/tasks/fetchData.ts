@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import zlib from "zlib";
-import { fetchUserCount } from "../lib/github";
+import { fetchOrganizationCount, fetchRepositoryCount, fetchUserCount } from "../lib/github";
 
 const dataDir = path.join(process.cwd(), "data");
 
@@ -21,24 +21,42 @@ const _gzip = (data: string): Buffer => {
 const _sleep = async (miliseconds: number): Promise<void> =>
   new Promise<void>(resolve => setTimeout(resolve, miliseconds));
 
-const _fetchUserCountWithRetry = async (
-  retryCount: number,
-): Promise<number> => {
+const _fetchCountWithRetry = async (retryCount: number, fn: () => Promise<number>) => {
   const counts: number[] = [];
   for (let i = 0; i < retryCount; i++) {
-    counts.push(await fetchUserCount());
+    counts.push(await fn());
     await _sleep(2000);
   }
   return Math.max(...counts);
+}
+
+const _fetchUserCountWithRetry = async (
+  retryCount: number,
+): Promise<number> => {
+  return _fetchCountWithRetry(retryCount, fetchUserCount);
 };
+
+const _fetchOrganizationCountWithRetry = async (retryCount: number): Promise<number> => {
+  return _fetchCountWithRetry(retryCount, fetchOrganizationCount);
+}
+
+const _fetchRepositoryCountWithRetry = async (retryCount: number): Promise<number> => {
+  return _fetchCountWithRetry(retryCount, fetchRepositoryCount);
+}
 
 // FIXME: 急ぎで書いたので汚すぎる
 (async () => {
   const userCount = await _fetchUserCountWithRetry(5);
-  _writeData(
-    "users.json",
-    JSON.stringify({ date: new Date().toISOString(), count: userCount }),
-  );
+  const usersData = JSON.stringify({ date: new Date().toISOString(), count: userCount });
+  _writeData("users.json", usersData);
+
+  const orgCount = await _fetchOrganizationCountWithRetry(5);
+  const orgsData = JSON.stringify({ date: new Date().toISOString(), count: orgCount });
+  _writeData("orgs.json", orgsData);
+
+  const repoCount = await _fetchRepositoryCountWithRetry(10);
+  const reposData = JSON.stringify({ date: new Date().toISOString(), count: repoCount });
+  _writeData("repos.json", reposData);
 
   // const numOrgs = Math.max(
   //   await fetchOrganizationCount(),
