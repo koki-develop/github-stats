@@ -11,19 +11,26 @@ type LanguagesYaml = {
   };
 };
 
-export const fetchLanguagesWithoutCount = async (): Promise<LanguageWithoutCount[]> => {
-  const endpoint = "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml";
+export const fetchLanguagesWithoutCount = async (): Promise<
+  LanguageWithoutCount[]
+> => {
+  const endpoint =
+    "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml";
   const { data } = await axios.get<string>(endpoint);
   const languagesYaml = yaml.load(data) as LanguagesYaml;
 
-  const languages = Object.entries(languagesYaml).map(([name, { type, color }]) => ({
-    name,
-    type,
-    color,
-  }));
+  const languages = Object.entries(languagesYaml).map(
+    ([name, { type, color }]) => ({
+      name,
+      type,
+      color,
+    }),
+  );
 
-  return languages.filter(language => ["programming", "markup"].includes(language.type)) as Language[];
-}
+  return languages.filter(language =>
+    ["programming", "markup"].includes(language.type),
+  ) as Language[];
+};
 
 type UserCountResponse = {
   user: {
