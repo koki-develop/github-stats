@@ -2,7 +2,7 @@ import crypto from "crypto";
 import axios from "axios";
 import { gql, rawRequest } from "graphql-request";
 import yaml from "js-yaml";
-import { Language, LanguageType } from "../models/language";
+import { Language, LanguageWithoutCount } from "../models/language";
 
 type LanguagesYaml = {
   [key: string]: {
@@ -11,20 +11,19 @@ type LanguagesYaml = {
   };
 };
 
-export const fetchLanguages = async (): Promise<Omit<Language, "count">[]> => {
-  const endpoint =
-    "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml";
+export const fetchLanguagesWithoutCount = async (): Promise<LanguageWithoutCount[]> => {
+  const endpoint = "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml";
   const { data } = await axios.get<string>(endpoint);
   const languagesYaml = yaml.load(data) as LanguagesYaml;
 
-  return Object.entries(languagesYaml)
-    .map(([name, { type, color }]) => ({
-      name,
-      type: type as LanguageType,
-      color,
-    }))
-    .filter(language => ["programming", "markup"].includes(language.type));
-};
+  const languages = Object.entries(languagesYaml).map(([name, { type, color }]) => ({
+    name,
+    type,
+    color,
+  }));
+
+  return languages.filter(language => ["programming", "markup"].includes(language.type)) as Language[];
+}
 
 type UserCountResponse = {
   user: {

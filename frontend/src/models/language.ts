@@ -1,3 +1,4 @@
+
 export type Language = {
   name: string;
   type: LanguageType;
@@ -6,3 +7,5 @@ export type Language = {
 };
 
 export type LanguageType = "programming" | "markup";
+
+export type LanguageWithoutCount = Omit<Language, "count">;
