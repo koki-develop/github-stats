@@ -9,11 +9,11 @@ export type RepositoriesLineChartProps = {
 };
 
 const RepositoriesLineChart: React.FC<RepositoriesLineChartProps> = memo(
-  (props) => {
+  props => {
     const { repos } = props;
 
     const points = useMemo(() => {
-      return repos.map((row) => ({
+      return repos.map(row => ({
         date: row.date,
         data: [
           { name: "Public Repositories", color: "#7cb5ec", value: row.count },
@@ -22,7 +22,7 @@ const RepositoriesLineChart: React.FC<RepositoriesLineChartProps> = memo(
     }, [repos]);
 
     return <LineChart points={points} />;
-  }
+  },
 );
 
 RepositoriesLineChart.displayName = "RepositoriesLineChart";

@@ -7,7 +7,7 @@ export type NumberProps = {
   value: number;
 };
 
-const Number: React.FC<NumberProps> = memo((props) => {
+const Number: React.FC<NumberProps> = memo(props => {
   const { className, diff, value } = props;
 
   const op = useMemo(() => {

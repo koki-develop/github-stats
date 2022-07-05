@@ -13,12 +13,12 @@ export type PieChartProps = {
 
 const floor = (num: number) => Math.floor(num * 100) / 100;
 
-const PieChart: React.FC<PieChartProps> = (props) => {
+const PieChart: React.FC<PieChartProps> = props => {
   const { total, data } = props;
 
   const formattedData = useMemo(() => {
     const formattedData = data
-      .map((row) => ({
+      .map(row => ({
         name: row.name,
         color: row.color,
         percentage: floor((row.value / total) * 100),
@@ -42,7 +42,7 @@ const PieChart: React.FC<PieChartProps> = (props) => {
   }, []);
 
   const options = useMemo(() => {
-    const seriesData = formattedData.map((row) => ({
+    const seriesData = formattedData.map(row => ({
       name: row.name,
       color: row.color,
       y: row.percentage,

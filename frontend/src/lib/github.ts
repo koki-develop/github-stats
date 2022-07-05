@@ -24,7 +24,7 @@ export const fetchLanguages = async (): Promise<Omit<Language, "count">[]> => {
       type: type as LanguageType,
       color,
     }))
-    .filter((language) => ["programming", "markup"].includes(language.type));
+    .filter(language => ["programming", "markup"].includes(language.type));
 };
 
 type UserCountResponse = {
@@ -97,7 +97,7 @@ type LanguageCountResponse = {
 };
 
 export const fetchLanguageCounts = async (
-  languages: Omit<Language, "count">[]
+  languages: Omit<Language, "count">[],
 ): Promise<Language[]> => {
   console.info("languages:", languages.length);
   const languageWithCounts: Language[] = [];
@@ -107,7 +107,7 @@ export const fetchLanguageCounts = async (
     const nextLanguages = languagesClone.splice(0, 50);
     console.info("next:", JSON.stringify(nextLanguages));
     const map = new Map<string, Omit<Language, "count">>(
-      nextLanguages.map((language) => [`a${_md5(language.name)}`, language])
+      nextLanguages.map(language => [`a${_md5(language.name)}`, language]),
     );
     console.info("fetching languages...");
     const query = gql`
@@ -126,7 +126,7 @@ export const fetchLanguageCounts = async (
         const language = map.get(key);
         console.info(`${language.name}:`, repositoryCount);
         return { ...language, count: repositoryCount };
-      })
+      }),
     );
   }
 

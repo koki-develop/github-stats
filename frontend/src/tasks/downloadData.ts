@@ -38,7 +38,7 @@ type Data = {
     const dateString = date.toISOString().split("T")[0];
 
     const [users, usersOk] = await _download(
-      path.join(dateString, "users.json.gz")
+      path.join(dateString, "users.json.gz"),
     );
     if (!usersOk) {
       if (i === 0) {
@@ -48,13 +48,13 @@ type Data = {
       break;
     }
     const [orgs, orgsOk] = await _download(
-      path.join(dateString, "orgs.json.gz")
+      path.join(dateString, "orgs.json.gz"),
     );
     const [repos, reposOk] = await _download(
-      path.join(dateString, "repos.json.gz")
+      path.join(dateString, "repos.json.gz"),
     );
     const [languages, languagesOk] = await _download(
-      path.join(dateString, "languages.json.gz")
+      path.join(dateString, "languages.json.gz"),
     );
     if (!orgsOk || !reposOk || !languagesOk) {
       throw new Error("fetch failed");
@@ -71,6 +71,6 @@ type Data = {
 
   fs.writeFileSync(
     path.join(process.cwd(), "src/data.json"),
-    JSON.stringify(rows)
+    JSON.stringify(rows),
   );
 })();

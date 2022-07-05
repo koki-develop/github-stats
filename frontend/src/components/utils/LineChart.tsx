@@ -13,7 +13,7 @@ type Point = {
   data: { name: string; color?: string; value: number }[];
 };
 
-const LineChart: React.FC<LineChartProps> = (props) => {
+const LineChart: React.FC<LineChartProps> = props => {
   const { height = 400, points, legend } = props;
 
   const formattedPoints = useMemo(() => {
@@ -29,7 +29,7 @@ const LineChart: React.FC<LineChartProps> = (props) => {
     }
     for (const point of pointsClone) {
       for (const name of allDataName) {
-        if (!point.data.find((row) => row.name === name)) {
+        if (!point.data.find(row => row.name === name)) {
           point.data.push({ name, value: null });
         }
       }
@@ -37,7 +37,7 @@ const LineChart: React.FC<LineChartProps> = (props) => {
 
     const formattedPoints = pointsClone
       .sort((a, b) => (a.date > b.date ? 1 : -1))
-      .map((point) => ({
+      .map(point => ({
         date: new Date(point.date).toISOString().split("T")[0],
         data: point.data,
       }));
@@ -45,7 +45,7 @@ const LineChart: React.FC<LineChartProps> = (props) => {
   }, [points]);
 
   const dates = useMemo(() => {
-    return formattedPoints.map((point) => point.date);
+    return formattedPoints.map(point => point.date);
   }, [formattedPoints]);
 
   const series: SeriesOptionsType[] = useMemo(() => {

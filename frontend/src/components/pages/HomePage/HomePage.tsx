@@ -54,11 +54,11 @@ export type HomePageProps = {
   };
 };
 
-const HomePage: NextPage<HomePageProps> = (props) => {
+const HomePage: NextPage<HomePageProps> = props => {
   const { repos, languages, users, orgs } = props;
 
   const usersData = useMemo(() => {
-    return users.data.map((record) => ({
+    return users.data.map(record => ({
       date: record.date,
       data: [
         {
@@ -71,7 +71,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
   }, [users.data]);
 
   const orgsData = useMemo(() => {
-    return orgs.data.map((record) => ({
+    return orgs.data.map(record => ({
       date: record.date,
       data: [
         {
@@ -132,7 +132,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           <div className="mb-2 md:mb-0 md:w-1/2">
             <PieChart
               total={repos.latest.count}
-              data={languages.latest.topLanguages.map((language) => ({
+              data={languages.latest.topLanguages.map(language => ({
                 name: language.name,
                 color: language.color,
                 value: language.count,

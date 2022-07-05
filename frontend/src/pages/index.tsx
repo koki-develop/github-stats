@@ -6,7 +6,7 @@ export default HomePage;
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   // repositories
-  const reposData = data.map((record) => record.repos);
+  const reposData = data.map(record => record.repos);
   const reposSortedData = reposData
     .concat()
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -14,7 +14,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const reposDiff = reposTodayData.count - reposYesterdayData.count;
 
   // languages
-  const languagesData = data.map((record) => record.languages);
+  const languagesData = data.map(record => record.languages);
   const languagesSortedData = languagesData
     .concat()
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -23,21 +23,21 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     .concat()
     .sort((a, b) => b.count - a.count)
     .slice(0, 50);
-  const languagesFilteredData = languagesSortedData.map((data) => {
+  const languagesFilteredData = languagesSortedData.map(data => {
     return {
       date: data.date,
       languages: data.languages
-        .filter((language) =>
+        .filter(language =>
           languagesTodayTopData.find(
-            (topLanguage) => topLanguage.name === language.name
-          )
+            topLanguage => topLanguage.name === language.name,
+          ),
         )
-        .map((language) => ({ color: "#000000", ...language })),
+        .map(language => ({ color: "#000000", ...language })),
     };
   });
 
   // users
-  const usersData = data.map((record) => record.users);
+  const usersData = data.map(record => record.users);
   const usersSortedData = usersData
     .concat()
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const usersDiff = usersTodayData.count - usersYesterdayData.count;
 
   // orgs
-  const orgsData = data.map((record) => record.orgs);
+  const orgsData = data.map(record => record.orgs);
   const orgsSortedData = orgsData
     .concat()
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -64,13 +64,13 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     languages: {
       latest: {
         date: languagesTodayData.date,
-        topLanguages: languagesTodayTopData.map((language) => ({
+        topLanguages: languagesTodayTopData.map(language => ({
           name: language.name,
           color: language.color ?? "#000000",
           count: language.count,
           diff: (() => {
             const yesterdayLanguage = languagesYesterdayData.languages.find(
-              (yesterdayLanguage) => yesterdayLanguage.name === language.name
+              yesterdayLanguage => yesterdayLanguage.name === language.name,
             );
             if (!yesterdayLanguage) return language.count;
             return language.count - yesterdayLanguage.count;

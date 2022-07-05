@@ -25,7 +25,7 @@ const _gzip = (data: string): Buffer => {
 };
 
 const _sleep = async (milliseconds: number) =>
-  new Promise((resolve) => setTimeout(resolve, milliseconds));
+  new Promise(resolve => setTimeout(resolve, milliseconds));
 
 // FIXME: 急ぎで書いたので汚すぎる
 (async () => {
@@ -47,11 +47,11 @@ const _sleep = async (milliseconds: number) =>
     await (async () => {
       await _sleep(2000);
       return fetchUserCount();
-    })()
+    })(),
   );
   _writeData(
     "users.json",
-    JSON.stringify({ date: new Date().toISOString(), count: numUsers })
+    JSON.stringify({ date: new Date().toISOString(), count: numUsers }),
   );
 
   const numOrgs = Math.max(
@@ -71,11 +71,11 @@ const _sleep = async (milliseconds: number) =>
     await (async () => {
       await _sleep(2000);
       return fetchOrganizationCount();
-    })()
+    })(),
   );
   _writeData(
     "orgs.json",
-    JSON.stringify({ date: new Date().toISOString(), count: numOrgs })
+    JSON.stringify({ date: new Date().toISOString(), count: numOrgs }),
   );
 
   const numRepos = Math.max(
@@ -95,11 +95,11 @@ const _sleep = async (milliseconds: number) =>
     await (async () => {
       await _sleep(2000);
       return fetchRepositoryCount();
-    })()
+    })(),
   );
   _writeData(
     "repos.json",
-    JSON.stringify({ date: new Date().toISOString(), count: numRepos })
+    JSON.stringify({ date: new Date().toISOString(), count: numRepos }),
   );
 
   const languageWithoutCounts = JSON.parse(_loadData("languages.json"));
@@ -109,7 +109,7 @@ const _sleep = async (milliseconds: number) =>
     const nextLanguages = await fetchLanguageCounts(languageWithoutCounts);
     for (const nextLanguage of nextLanguages) {
       const prevLanguageIndex = languages.findIndex(
-        (language) => language.name === nextLanguage.name
+        language => language.name === nextLanguage.name,
       );
       if (prevLanguageIndex === -1)
         throw new Error(`language not found: ${nextLanguage.name}`);
@@ -121,6 +121,6 @@ const _sleep = async (milliseconds: number) =>
 
   _writeData(
     "languages.json",
-    JSON.stringify({ date: new Date().toISOString(), languages })
+    JSON.stringify({ date: new Date().toISOString(), languages }),
   );
 })();

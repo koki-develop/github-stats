@@ -6,7 +6,7 @@ export type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = memo((props) => {
+const Layout: React.FC<LayoutProps> = memo(props => {
   const { children } = props;
 
   return (

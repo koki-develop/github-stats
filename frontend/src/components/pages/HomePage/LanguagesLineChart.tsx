@@ -9,13 +9,13 @@ export type LanguagesLineChartProps = {
   }[];
 };
 
-const LanguagesLineChart: React.FC<LanguagesLineChartProps> = (props) => {
+const LanguagesLineChart: React.FC<LanguagesLineChartProps> = props => {
   const { data } = props;
 
   const points = useMemo(() => {
-    return data.map((row) => ({
+    return data.map(row => ({
       date: row.date,
-      data: row.languages.map((language) => ({
+      data: row.languages.map(language => ({
         name: language.name,
         color: language.color,
         value: language.count,
