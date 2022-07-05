@@ -130,9 +130,11 @@ export const fetchLanguageCounts = async (
     );
   }
 
-  return languageWithCounts
-    // .filter((language) => language.count !== 0)
-    .sort((a, b) => b.count - a.count);
+  return (
+    languageWithCounts
+      // .filter((language) => language.count !== 0)
+      .sort((a, b) => b.count - a.count)
+  );
 };
 
 const _sendRequest = async <T>(query: string): Promise<T> => {

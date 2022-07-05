@@ -108,8 +108,11 @@ const _sleep = async (milliseconds: number) =>
     await _sleep(2000);
     const nextLanguages = await fetchLanguageCounts(languageWithoutCounts);
     for (const nextLanguage of nextLanguages) {
-      const prevLanguageIndex = languages.findIndex(language => language.name === nextLanguage.name);
-      if (prevLanguageIndex === -1) throw new Error(`language not found: ${nextLanguage.name}`);
+      const prevLanguageIndex = languages.findIndex(
+        (language) => language.name === nextLanguage.name
+      );
+      if (prevLanguageIndex === -1)
+        throw new Error(`language not found: ${nextLanguage.name}`);
       if (languages[prevLanguageIndex].count < nextLanguage.count) {
         languages[prevLanguageIndex] = nextLanguage;
       }
