@@ -28,51 +28,63 @@ const _sleep = async (miliseconds: number): Promise<void> =>
 
 const _fetchCountWithRetry = async (
   retryCount: number,
+  intervalMiliseconds: number,
   fn: () => Promise<number>,
 ) => {
   const counts: number[] = [];
   for (let i = 0; i < retryCount; i++) {
     counts.push(await fn());
-    await _sleep(3000);
+    await _sleep(intervalMiliseconds);
   }
   return Math.max(...counts);
 };
 
 const _fetchUserCountWithRetry = async (
   retryCount: number,
+  intervalMiliseconds: number,
 ): Promise<number> => {
-  return _fetchCountWithRetry(retryCount, fetchUserCount);
+  return _fetchCountWithRetry(retryCount, intervalMiliseconds, fetchUserCount);
 };
 
 const _fetchOrganizationCountWithRetry = async (
   retryCount: number,
+  intervalMiliseconds: number,
 ): Promise<number> => {
-  return _fetchCountWithRetry(retryCount, fetchOrganizationCount);
+  return _fetchCountWithRetry(
+    retryCount,
+    intervalMiliseconds,
+    fetchOrganizationCount,
+  );
 };
 
 const _fetchRepositoryCountWithRetry = async (
   retryCount: number,
+  intervalMiliseconds: number,
 ): Promise<number> => {
-  return _fetchCountWithRetry(retryCount, fetchRepositoryCount);
+  return _fetchCountWithRetry(
+    retryCount,
+    intervalMiliseconds,
+    fetchRepositoryCount,
+  );
 };
 
 // FIXME: 急ぎで書いたので汚すぎる
 (async () => {
-  const userCount = await _fetchUserCountWithRetry(5);
+  const userCount = await _fetchUserCountWithRetry(5, 3000);
   const usersData = JSON.stringify({
     date: new Date().toISOString(),
     count: userCount,
   });
   _writeData("users.json", usersData);
 
-  const orgCount = await _fetchOrganizationCountWithRetry(5);
+  const orgCount = await _fetchOrganizationCountWithRetry(5, 3000);
   const orgsData = JSON.stringify({
     date: new Date().toISOString(),
     count: orgCount,
   });
   _writeData("orgs.json", orgsData);
 
-  const repoCount = await _fetchRepositoryCountWithRetry(10);
+  const repoCount = await _fetchRepositoryCountWithRetry(10, 5000);
   const reposData = JSON.stringify({
     date: new Date().toISOString(),
     count: repoCount,
