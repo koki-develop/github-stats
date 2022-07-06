@@ -84,7 +84,7 @@ const _fetchRepositoryCountWithRetry = async (
   });
   _writeData("orgs.json", orgsData);
 
-  const repoCount = await _fetchRepositoryCountWithRetry(10, 5000);
+  const repoCount = await _fetchRepositoryCountWithRetry(30, 5000);
   const reposData = JSON.stringify({
     date: new Date().toISOString(),
     count: repoCount,
