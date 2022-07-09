@@ -107,7 +107,7 @@ const HomePage: NextPage<HomePageProps> = props => {
       <div className="mb-4">
         <div className="mb-2 px-2">
           <div className="text-xl font-bold">
-            Public Repositories ( By language )
+            Public Repositories ( By Language )
           </div>
           <div className="text-sm">
             The languages included here are only those{" "}
