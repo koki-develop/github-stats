@@ -95,7 +95,7 @@ const _fetchRepositoryCountWithRetry = async (
     _loadData("languages_without_count.json"),
   );
   const languages = await fetchLanguageCounts(languageWithoutCounts);
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 9; i++) {
     await _sleep(5000);
     const nextLanguages = await fetchLanguageCounts(languageWithoutCounts);
     for (const nextLanguage of nextLanguages) {
