@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { NextPage } from "next";
 import Head from "next/head";
-import React, { useMemo } from "react"
+import React, { useMemo } from "react";
 import Layout from "../../Layout";
 import LineChart from "../../utils/LineChart";
 import Number from "../../utils/Number";
@@ -88,6 +88,12 @@ const HomePage: NextPage<HomePageProps> = props => {
       <Head>
         <title>GitHub Stats</title>
       </Head>
+
+      <div className="mb-4 px-2">
+        <div className="rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+          For various reasons, we are not updating the data at this time.
+        </div>
+      </div>
 
       {/* Public Repositories */}
       <div className="mb-4">
